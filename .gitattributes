@@ -1,0 +1,6 @@
+# Store text with LF line endings; the shell wrapper stays LF and Windows scripts CRLF when checked out.
+* text=auto
+gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.glb binary

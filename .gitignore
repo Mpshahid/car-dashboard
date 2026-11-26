@@ -1,0 +1,31 @@
+# Build output and caches (every module; app/build holds a copy of your Maps key in debug builds)
+build/
+.gradle/
+.kotlin/
+.cxx/
+.externalNativeBuild/
+/captures/
+
+# IDE and OS files
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Machine-specific settings and secrets: the Android SDK path and your Google Maps API key
+local.properties
+secrets.properties
+
+# App packages and signing keys
+*.apk
+*.aab
+*.apks
+*.keystore
+*.jks
+
+# Local tooling, screenshots and personal files
+.claude/
+/*.png
+/*.jpg
+tools/blender/ref/
+tools/blender/out/

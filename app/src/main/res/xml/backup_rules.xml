@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and older: API keys (Google Maps, AI services) are left out of backups. -->
+<full-backup-content>
+    <exclude domain="sharedpref" path="cardash_maps_key.xml" />
+    <exclude domain="sharedpref" path="cardash_maps_key_fallback.xml" />
+    <exclude domain="sharedpref" path="cardash_ai_keys.xml" />
+    <exclude domain="sharedpref" path="cardash_ai_keys_fallback.xml" />
+</full-backup-content>

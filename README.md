@@ -32,31 +32,29 @@ The APK is written to `app/build/outputs/apk/debug/`. To run the unit tests: `./
 
 ## Google Maps API key (optional, your own)
 
-**This repository contains no API key.** The ride replay page needs your own key for Google Maps, satellite photos and
-the photorealistic 3D view. Without one, it shows the free OpenStreetMap map.
+**There's no API key in this repository, and none is ever built into the app.** The ride replay page needs your own
+key for Google Maps, satellite photos and the photorealistic 3D view. Without one, it shows the free OpenStreetMap map.
 
 1. In the [Google Cloud console](https://console.cloud.google.com/google/maps-apis/), create an API key and enable the
    **Maps JavaScript API** for it. Restricting the key to that API and setting a budget alert is a good idea.
-2. Give the key to the app in one of two ways:
-   - **In the app:** go to **Setup ▸ Google Maps key**, paste the key and tap **Save**. The key is stored encrypted on
-     the phone.
-   - **At build time (debug builds only):** add `MAPS_API_KEY=your-key` to `local.properties` in the project root. That
-     file is git-ignored, so the key is never committed. Release builds ignore it, so an APK you share doesn't contain
-     your key.
+2. On the phone, go to **Setup ▸ Google Maps key**, paste the key and tap **Save**.
 
-If both are set, the key saved in Setup is used.
+The key is stored encrypted on the phone and left out of backups. It only goes to the replay page on devices that open
+your link, which carries the access code, and from there to Google.
 
 ## AI keys
 
 The voice assistant and AI check-up use your own key for the AI service you pick. You enter it in
-**Setup ▸ Voice assistant**. The key is stored encrypted on the phone and sent only to that service.
+**Setup ▸ Voice assistant**. The key is stored encrypted on the phone, left out of backups, and sent only to that
+service.
 
 ## Privacy
 
 - Drive logs, including GPS, stay in the app's private storage on the phone. You choose how many days to keep.
 - The replay page is served only on your own network, or over Tailscale. The link carries an access code, and Setup
   can make a new one.
-- No keys are in the source code.
+- No keys are in the source code or in the app files it builds. Keys you enter stay on the phone and are left out of
+  backups.
 
 ## Project layout
 

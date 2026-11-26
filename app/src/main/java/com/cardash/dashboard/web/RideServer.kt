@@ -239,10 +239,10 @@ object RideServer {
         }
         put("pids", cols)
         put("vehicle", "2012 Vauxhall Meriva B · petrol · manual")
-        // The page draws Google's map, satellite and 3D views with the driver's own Google Maps key (saved in Setup,
-        // or a debug build's local.properties key). Only requests that carry the access code get here, so the key is
-        // shared with the driver's own devices only. No key: the page uses OpenStreetMap.
-        val key = com.cardash.dashboard.data.MapsKey.current(app)
+        // The page draws Google's map, satellite and 3D views with the driver's own Google Maps key, saved in Setup.
+        // Only requests that carry the access code get here, so the key goes to the driver's own devices only.
+        // No key: the page uses OpenStreetMap.
+        val key = com.cardash.dashboard.data.MapsKey.saved(app)
         if (key.isNotBlank()) put("mapsKey", key)
         val p = app.getSharedPreferences("cardash", Context.MODE_PRIVATE)
         put("imperial", p.getBoolean("imperial", true))

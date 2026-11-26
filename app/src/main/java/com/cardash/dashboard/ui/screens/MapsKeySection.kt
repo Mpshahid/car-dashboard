@@ -47,12 +47,9 @@ fun MapsKeySection() {
             fontSize = 13.sp,
         )
         Text(
-            when {
-                saved -> "Key saved on this phone (encrypted). Enter a new one to replace it."
-                MapsKey.builtIn -> "Using the key built into this app (local.properties). A key saved here replaces it."
-                else -> "No key yet. Create one at console.cloud.google.com with the Maps JavaScript API enabled."
-            },
-            color = if (saved || MapsKey.builtIn) Good else Faint,
+            if (saved) "Key saved on this phone (encrypted). Enter a new one to replace it."
+            else "No key yet. Create one at console.cloud.google.com with the Maps JavaScript API enabled.",
+            color = if (saved) Good else Faint,
             fontSize = 12.sp,
             modifier = Modifier.padding(top = 8.dp),
         )
@@ -88,8 +85,8 @@ fun MapsKeySection() {
             Text(text, color = if (warn) Danger else Muted, fontSize = 12.sp, modifier = Modifier.padding(top = 4.dp))
         }
         Text(
-            "The key stays on this phone. It only goes to the replay page on your own devices (the link carries the " +
-                "access code), and from there to Google.",
+            "The key stays on this phone and isn't included in backups. It only goes to the replay page on devices " +
+                "that open your link (it carries the access code), and from there to Google.",
             color = Faint,
             fontSize = 11.sp,
             modifier = Modifier.padding(top = 6.dp),

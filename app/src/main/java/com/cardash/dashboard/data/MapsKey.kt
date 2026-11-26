@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.cardash.dashboard.BuildConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,9 +11,9 @@ import kotlinx.coroutines.flow.asStateFlow
 /**
  * The Google Maps API key the ride replay page uses for Google's map, satellite photos and 3D view.
  *
- * The driver pastes it in Setup ▸ Google Maps key. It's kept encrypted on this phone and handed only to the replay page
- * (which needs the access code), and from there to Google. The source code carries no key. Debug builds also pick up
- * `MAPS_API_KEY` from local.properties (git-ignored) as a fallback; release builds never do, so a shared APK has no key.
+ * The driver pastes it in Setup ▸ Google Maps key. It's kept encrypted on this phone, left out of backups and device
+ * transfers (res/xml/data_extraction_rules.xml), and handed only to the replay page, which needs the access code, and
+ * from there to Google. It is never built into the app, so neither the source nor an APK contains a key.
  */
 object MapsKey {
     private const val FILE = "cardash_maps_key"
@@ -27,9 +26,6 @@ object MapsKey {
     /** Bumped on every save, so Setup refreshes. */
     val rev: StateFlow<Int> = _rev.asStateFlow()
 
-    /** True when this build carries a key from local.properties (debug builds only). */
-    val builtIn: Boolean get() = BuildConfig.MAPS_API_KEY.isNotBlank()
-
     /** The key saved in Setup, or "" if none. */
     fun saved(context: Context): String = prefs(context).getString(PREF, "").orEmpty()
 
@@ -38,9 +34,6 @@ object MapsKey {
         prefs(context).edit().putString(PREF, key.trim()).apply()
         _rev.value++
     }
-
-    /** The key the replay page gets: the one saved in Setup, else the build's, else "". */
-    fun current(context: Context): String = saved(context).ifBlank { BuildConfig.MAPS_API_KEY }
 
     /** Google API keys are 39 characters starting with "AIza". */
     fun looksValid(key: String): Boolean = SHAPE.matches(key.trim())

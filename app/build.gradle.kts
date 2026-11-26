@@ -1,20 +1,11 @@
-import java.util.Properties
-import java.io.FileInputStream
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-val localProps = Properties().apply {
-    val f = rootProject.file("local.properties")
-    if (f.exists()) FileInputStream(f).use { load(it) }
-}
-// Optional Google Maps key for your own debug builds: MAPS_API_KEY=... in local.properties (git-ignored, never
-// committed). Release builds never carry it, and anyone can paste their own key in the app's Setup instead.
-val mapsApiKey: String = localProps.getProperty("MAPS_API_KEY")?.trim() ?: ""
-
+// No API key is ever built into the app: the Google Maps key (and any AI key) is pasted in the app's Setup and stays
+// on the phone, so neither this source nor an APK made from it contains one.
 android {
     namespace = "com.cardash.dashboard"
     compileSdk = 35
@@ -30,11 +21,7 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
-        }
         release {
-            buildConfigField("String", "MAPS_API_KEY", "\"\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
